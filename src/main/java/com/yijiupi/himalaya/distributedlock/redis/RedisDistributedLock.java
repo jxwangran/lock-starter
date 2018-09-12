@@ -61,7 +61,7 @@ public class RedisDistributedLock extends AbstractRedisDistributedLock {
 						return (Long) ((JedisCluster) nativeConnection).eval(redisLockScript.getScriptAsString(),
 								Collections.singletonList(key), Arrays.asList(params));
 					}
-
+					
 					else if (nativeConnection instanceof Jedis) {
 						String[] tmpParams = new String[params.length + 1];
 						tmpParams[0] = key;

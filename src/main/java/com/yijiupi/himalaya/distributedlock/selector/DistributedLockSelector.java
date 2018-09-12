@@ -7,38 +7,37 @@ import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
-import com.yijiupi.himalaya.distributedlock.annotation.EnableZkClient;
-import com.yijiupi.himalaya.distributedlock.enums.ZookeeperClientType;
-import com.yijiupi.himalaya.distributedlock.zookeeper.curator.CuratorZookeeperClient;
-import com.yijiupi.himalaya.distributedlock.zookeeper.zkclient.ZkClientZookeeperClient;
+import com.yijiupi.himalaya.distributedlock.annotation.EnableDistributedLock;
+import com.yijiupi.himalaya.distributedlock.enums.DistributedLockType;
 
 /** 
-* @ClassName: ZkClientSelector 
+* @ClassName: LockSelector 
 * @Description: 
 * @author wangran
-* @date 2018年9月11日 下午7:51:46 
+* @date 2018年9月12日 下午2:56:03 
 *  
 */
-public class ZkClientSelector implements ImportSelector {
+public class DistributedLockSelector implements ImportSelector {
 
 	@Override
 	public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-		Class<?> annotationType = EnableZkClient.class;
+		Class<?> annotationType = EnableDistributedLock.class;
 		AnnotationAttributes attributes = AnnotationAttributes
 				.fromMap(importingClassMetadata.getAnnotationAttributes(annotationType.getName(), false));
 		if (attributes == null) {
 			throw new IllegalArgumentException(String.format("@%s is not present on importing class '%s' as expected",
 					annotationType.getSimpleName(), importingClassMetadata.getClassName()));
 		}
-		ZookeeperClientType type = attributes.getEnum("type");
+		DistributedLockType type = attributes.getEnum("lockType");
 		switch (type) {
-		case ZkClient:
-			return new String[] {ZkClientZookeeperClient.class.getName() };
-		case Curator:
-			return new String[] {CuratorZookeeperClient.class.getName() };
+		case Redis:
+			
+			break;
+		
 		default:
-			return new String[] {ZkClientZookeeperClient.class.getName() };
+			break;
 		}
+		return null;
 	}
 
 }

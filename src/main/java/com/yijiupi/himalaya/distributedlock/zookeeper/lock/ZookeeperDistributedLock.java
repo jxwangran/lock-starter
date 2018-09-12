@@ -20,7 +20,7 @@ import com.yijiupi.himalaya.distributedlock.zookeeper.ZookeeperClient;
  * @date 2018年9月11日 下午3:21:27
  * 
  */
-@Component
+//@Component
 public class ZookeeperDistributedLock extends AbstractZookeeperDistributedLock {
 
 	@Autowired

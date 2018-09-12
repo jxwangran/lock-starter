@@ -1,7 +1,7 @@
 /**   
  * Copyright © 2017 北京易酒批电子商务有限公司. All rights reserved.
  */
-package com.yijiupi.himalaya.distributedlock.configuration;
+package com.yijiupi.himalaya.distributedlock.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

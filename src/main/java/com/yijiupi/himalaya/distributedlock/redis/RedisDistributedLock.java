@@ -18,6 +18,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
+import org.springframework.stereotype.Component;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
@@ -29,7 +30,7 @@ import redis.clients.jedis.JedisCluster;
  * @date 2018年9月11日 上午10:12:06
  * 
  */
-//@Component
+@Component
 public class RedisDistributedLock extends AbstractRedisDistributedLock {
 
 	@Autowired

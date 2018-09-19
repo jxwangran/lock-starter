@@ -18,7 +18,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
-import com.yijiupi.himalaya.distributedlock.SupplyDistributedLock;
+import com.yijiupi.himalaya.distributedlock.lock.SupplyDistributedLock;
 import com.yijiupi.himalaya.distributedlock.redis.RedisLock;
 
 /**

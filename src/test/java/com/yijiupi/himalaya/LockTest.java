@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.yijiupi.himalaya.distributedlock.SupplyDistributedLock;
+import com.yijiupi.himalaya.distributedlock.lock.SupplyDistributedLock;
 
 /** 
 * @ClassName: LockTest 

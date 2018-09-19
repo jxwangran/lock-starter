@@ -3,7 +3,7 @@
  */
 package com.yijiupi.himalaya.distributedlock.redis;
 
-import com.yijiupi.himalaya.distributedlock.SupplyDistributedLock;
+import com.yijiupi.himalaya.distributedlock.lock.SupplyDistributedLock;
 
 /** 
 * @ClassName: AbstractDistributedLock 

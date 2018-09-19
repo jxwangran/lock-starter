@@ -1,7 +1,7 @@
 /**   
  * Copyright © 2018 北京易酒批电子商务有限公司. All rights reserved.
  */
-package com.yijiupi.himalaya.distributedlock;
+package com.yijiupi.himalaya.distributedlock.lock;
 
 /** 
 * @ClassName: DistributedLock 

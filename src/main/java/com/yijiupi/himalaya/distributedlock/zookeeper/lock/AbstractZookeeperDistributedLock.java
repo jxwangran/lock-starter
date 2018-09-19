@@ -3,7 +3,7 @@
  */
 package com.yijiupi.himalaya.distributedlock.zookeeper.lock;
 
-import com.yijiupi.himalaya.distributedlock.SupplyDistributedLock;
+import com.yijiupi.himalaya.distributedlock.lock.SupplyDistributedLock;
 
 /** 
 * @ClassName: AbstractZokkeeperDistributedLock 

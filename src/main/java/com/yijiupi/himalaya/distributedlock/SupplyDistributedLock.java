@@ -38,6 +38,22 @@ public interface SupplyDistributedLock {
 	
 	/**
 	 * 
+	 * @Description: 批量锁
+	 * @date 2018年9月19日 下午4:13:05
+	 * @author wangran
+	 */
+	boolean lockBatch(String... keys);
+	
+	/**
+	 * 
+	 * @Description: 批量锁
+	 * @date 2018年9月19日 下午4:13:05
+	 * @author wangran
+	 */
+	boolean lockBatch(String value, Long expire, String... keys);
+	
+	/**
+	 * 
 	 * @Description: 释放锁
 	 * @date 2018年9月11日 上午10:06:51
 	 * @author wangran

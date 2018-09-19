@@ -122,4 +122,9 @@ public class RedisDistributedLock extends AbstractRedisDistributedLock {
 		return false;
 	}
 
+	@Override
+	public boolean lockBatch(String value, Long expire, String... keys) {
+		return false;
+	}
+
 }

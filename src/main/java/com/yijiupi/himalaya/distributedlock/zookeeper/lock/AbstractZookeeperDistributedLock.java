@@ -18,5 +18,10 @@ public abstract class AbstractZookeeperDistributedLock implements SupplyDistribu
 	public boolean lock(String key) {
 		return lock(key, DEFAULT_VALUE, DEFAULT_EXPIRE);
 	}
+	
+	@Override
+	public boolean lockBatch(String... keys) {
+		return lockBatch(DEFAULT_VALUE, DEFAULT_EXPIRE, keys);
+	}
 
 }

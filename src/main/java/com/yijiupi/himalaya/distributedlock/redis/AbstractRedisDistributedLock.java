@@ -24,7 +24,12 @@ public abstract class AbstractRedisDistributedLock implements SupplyDistributedL
 		String[] params = new String[]{value, String.valueOf(expire)};
 		return lock(key, params);
 	}
-
+	
+	@Override
+	public boolean lockBatch(String... keys) {
+		return lockBatch(DEFAULT_VALUE, DEFAULT_EXPIRE, keys);
+	}
+	
 	public abstract boolean lock(String key, String... params);
 
 }

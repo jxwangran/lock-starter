@@ -31,7 +31,6 @@ import com.yijiupi.himalaya.distributedlock.redis.RedisLock;
 @Aspect
 @Configuration
 @ConditionalOnClass(SupplyDistributedLock.class)
-// @AutoConfigureAfter
 public class DistributedLockAspectConfiguration {
 
 	@Autowired

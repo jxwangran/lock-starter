@@ -67,4 +67,9 @@ public class ZookeeperDistributedLock extends AbstractZookeeperDistributedLock {
 		}
 	}
 
+	@Override
+	public boolean lockBatch(String value, Long expire, String... keys) {
+		return false;
+	}
+
 }

@@ -17,7 +17,7 @@ import com.yijiupi.himalaya.distributedlock.zookeeper.support.AbstractZookeeperC
  * 
  */
 public class ZkClientZookeeperClient extends AbstractZookeeperClient {
-
+	
 	private final ZkClient zkClient;
 	
 	public ZkClientZookeeperClient(String addresses) {

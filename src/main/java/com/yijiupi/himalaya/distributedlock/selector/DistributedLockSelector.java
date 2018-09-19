@@ -8,15 +8,17 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
 import com.yijiupi.himalaya.distributedlock.annotation.EnableDistributedLock;
+import com.yijiupi.himalaya.distributedlock.configuration.RedisConfiguration;
+import com.yijiupi.himalaya.distributedlock.configuration.ZkLockConfiguration;
 import com.yijiupi.himalaya.distributedlock.enums.DistributedLockType;
 
-/** 
-* @ClassName: LockSelector 
-* @Description: 
-* @author wangran
-* @date 2018年9月12日 下午2:56:03 
-*  
-*/
+/**
+ * @ClassName: LockSelector
+ * @Description:
+ * @author wangran
+ * @date 2018年9月12日 下午2:56:03
+ * 
+ */
 public class DistributedLockSelector implements ImportSelector {
 
 	@Override
@@ -31,13 +33,12 @@ public class DistributedLockSelector implements ImportSelector {
 		DistributedLockType type = attributes.getEnum("lockType");
 		switch (type) {
 		case Redis:
-			
-			break;
-		
+			return new String[] { RedisConfiguration.class.getName() };
+		case Zookeeper:
+			return new String[] { ZkLockConfiguration.class.getName() };
 		default:
-			break;
+			return new String[] { RedisConfiguration.class.getName() };
 		}
-		return null;
 	}
 
 }

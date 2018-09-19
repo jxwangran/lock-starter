@@ -14,7 +14,7 @@ public interface SupplyDistributedLock {
 	/**
 	 * 过期时间：毫秒级别
 	 */
-	public static final String DEFAULT_EXPIRE = "500";
+	public static final Long DEFAULT_EXPIRE = 500L;
 	/**
 	 * 默认value
 	 */

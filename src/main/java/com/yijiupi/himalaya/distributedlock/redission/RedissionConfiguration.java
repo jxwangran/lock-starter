@@ -17,15 +17,15 @@ import org.springframework.context.annotation.Configuration;
 * @date 2018年9月12日 下午2:11:50 
 *  
 */
-@Configuration
+//@Configuration
 public class RedissionConfiguration {
 
-//	@Bean
-//	public RedissonClient getRedission(@Value("${spring.redis.cluster.nodes}") String redis) {
-//		Config config = new Config();
-//		config.useClusterServers().addNodeAddress("");
-//		RedissonClient redissionClient = Redisson.create(config);
-//		return redissionClient;
-//	}
+	@Bean
+	public RedissonClient getRedission(@Value("${spring.redis.cluster.nodes}") String redis) {
+		Config config = new Config();
+		config.useClusterServers().setScanInterval(2000).addNodeAddress("");
+		RedissonClient redissionClient = Redisson.create(config);
+		return redissionClient;
+	}
 	
 }

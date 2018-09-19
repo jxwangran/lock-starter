@@ -30,26 +30,33 @@ import redis.clients.jedis.JedisCluster;
  * @date 2018年9月11日 上午10:12:06
  * 
  */
-@Component
 public class RedisDistributedLock extends AbstractRedisDistributedLock {
 
-	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
 	private DefaultRedisScript<Boolean> redisLockScript;
 	private DefaultRedisScript<Boolean> redisUnLockScript;
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedisDistributedLock.class);
 	private static final Integer DEFAULT_KEY_NUMS = 1;
-
-	@PostConstruct
-	public void init() {
-		redisLockScript = new DefaultRedisScript<>();
-		redisLockScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/redisLock.lua")));
-		redisLockScript.setResultType(Boolean.class);
-
-		redisUnLockScript = new DefaultRedisScript<>();
-		redisUnLockScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/redisUnLock.lua")));
-		redisUnLockScript.setResultType(Boolean.class);
+	
+	public RedisDistributedLock(RedisTemplate<String, String> redisTemplate, DefaultRedisScript<Boolean> redisLockScript, DefaultRedisScript<Boolean> redisUnLockScript) {
+		this.redisTemplate = redisTemplate;
+		this.redisLockScript = redisLockScript;
+		this.redisUnLockScript = redisUnLockScript;
+		
 	}
+	
+//	@PostConstruct
+//	public void init() {
+//		redisLockScript = new DefaultRedisScript<>();
+//		redisLockScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/redisLock.lua")));
+//		redisLockScript.setResultType(Boolean.class);
+//
+//		redisUnLockScript = new DefaultRedisScript<>();
+//		redisUnLockScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/redisUnLock.lua")));
+//		redisUnLockScript.setResultType(Boolean.class);
+//	}
+	
+	
 
 	@Override
 	public boolean lock(String key, String... params) {

@@ -5,8 +5,11 @@ package com.yijiupi.himalaya;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.yijiupi.himalaya.distributedlock.SupplyDistributedLock;
 
 /** 
 * @ClassName: LockTest 
@@ -18,11 +21,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DistributedLockApp.class)
 public class LockTest {
-
+	
+	@Autowired
+	private SupplyDistributedLock lock;
 	
 	@Test
 	public void lockTest() {
-		
+		lock.lock("test11");
 	}
 	
 }

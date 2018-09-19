@@ -5,7 +5,11 @@ import java.util.concurrent.CountDownLatch;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.yijiupi.himalaya.distributedlock.annotation.EnableDistributedLock;
+import com.yijiupi.himalaya.distributedlock.enums.DistributedLockType;
+
 @SpringBootApplication
+@EnableDistributedLock(lockType = DistributedLockType.Zookeeper)
 public class DistributedLockApp {
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication app = new SpringApplication(DistributedLockApp.class);

@@ -19,23 +19,23 @@ import com.yijiupi.himalaya.distributedlock.zookeeper.zkclient.ZkClientZookeeper
 * @date 2018年9月11日 下午8:00:04 
 *  
 */
-@Configuration
-@ConditionalOnProperty(prefix = "zkType", name = {"enable"}, havingValue = "true")
+//@Configuration
+//@ConditionalOnProperty(prefix = "zkType", name = {"enable"}, havingValue = "true")
 public class ZkClientConfiguration {
 
 	@Bean
-	@ConditionalOnExpression("${zkType.type} != 1")
+//	@ConditionalOnExpression("${zkType.type} != 1")
 	public ZkClientZookeeperClient getZkClientZookeeperClient(@Value("${dubbo.zookeeper.address}") String addresses) {
 		ZkClientZookeeperClient client = new ZkClientZookeeperClient(addresses);
 		return client;
 	}
 	
-	@Bean
-	@ConditionalOnExpression("${zkType.type} == 1")
-	public CuratorZookeeperClient getCuratorZookeeperClient(@Value("${dubbo.zookeeper.address}") String addresses) {
-		CuratorZookeeperClient client = new CuratorZookeeperClient(addresses);
-		return client;
-	}
+//	@Bean
+//	@ConditionalOnExpression("${zkType.type} == 1")
+//	public CuratorZookeeperClient getCuratorZookeeperClient(@Value("${dubbo.zookeeper.address}") String addresses) {
+//		CuratorZookeeperClient client = new CuratorZookeeperClient(addresses);
+//		return client;
+//	}
 	
 	
 }

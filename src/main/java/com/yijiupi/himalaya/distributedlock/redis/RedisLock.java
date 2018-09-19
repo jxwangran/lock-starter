@@ -24,6 +24,11 @@ public @interface RedisLock {
 	 * 锁的资源，redis的key 
 	 **/
 	String value() default "default";
+	
+	/**
+	 * 加锁资源列表
+	 */
+	String[] values() default "default";
 
 	/** 
 	 * 持锁时间,单位毫秒 

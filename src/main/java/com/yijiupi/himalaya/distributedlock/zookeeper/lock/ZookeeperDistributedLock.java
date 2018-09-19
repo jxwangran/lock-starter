@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.yijiupi.himalaya.distributedlock.zookeeper.ZookeeperClient;
 
@@ -20,14 +18,16 @@ import com.yijiupi.himalaya.distributedlock.zookeeper.ZookeeperClient;
  * @date 2018年9月11日 下午3:21:27
  * 
  */
-//@Component
 public class ZookeeperDistributedLock extends AbstractZookeeperDistributedLock {
 
-	@Autowired
-	private ZookeeperClient zkClient;
+	private final ZookeeperClient zkClient;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperDistributedLock.class);
 	private static final String ROOT_LOCK_DIR = "/supplyLock";
 	private static final String LINE_SIGN = "-";
+
+	public ZookeeperDistributedLock(ZookeeperClient zkClient) {
+		this.zkClient = zkClient;
+	}
 
 	@Override
 	public boolean lock(String key, String value, Long expire) {

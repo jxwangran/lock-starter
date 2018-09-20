@@ -5,6 +5,9 @@ package com.yijiupi.himalaya.distributedlock.aspect;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -16,6 +19,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
 
 import com.yijiupi.himalaya.distributedlock.lock.SupplyDistributedLock;
@@ -46,12 +55,14 @@ public class DistributedLockAspectConfiguration {
 	public Object around(ProceedingJoinPoint pjp) throws Throwable {
 		Method method = ((MethodSignature) pjp.getSignature()).getMethod();
 		RedisLock redisLock = method.getAnnotation(RedisLock.class);
-		String key = redisLock.value();
-		if (StringUtils.isEmpty(key)) {
-			Object[] args = pjp.getArgs();
-			key = Arrays.toString(args);
-		}
-//		int retryTimes = redisLock.action().equals(LockFailAction.CONTINUE) ? redisLock.retryTimes() : 0;
+		String key = redisLock.key();
+		
+		String conditions = redisLock.conditions();
+		
+		List<String> secKeys = parse(conditions, method, pjp.getArgs());
+		
+		key = key + ":" + secKeys.stream().findFirst().get();
+		
 		boolean lock = distributedLock.lock(key, redisLock.value(), redisLock.expireMills());
 		if (!lock) {
 			LOGGER.debug("get lock failed : " + key);
@@ -70,5 +81,37 @@ public class DistributedLockAspectConfiguration {
 			LOGGER.debug("release lock : " + key + (releaseResult ? " success" : " failed"));
 		}
 	}
-
+	
+	private String[] getArgParams(Method method) {
+		ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
+		return parameterNameDiscoverer.getParameterNames(method);
+	}
+	
+	private List<String> parse(String key, Method method, Object[] arguments) {
+		ExpressionParser parser = new SpelExpressionParser();
+		Expression expression = parser.parseExpression(key);
+		StandardEvaluationContext context = new StandardEvaluationContext();
+		String[] parameterNames = getArgParams(method);
+		for (int i = 0; i < parameterNames.length; i++) {
+			context.setVariable(parameterNames[i], arguments[i]);
+        }
+		Object obj = expression.getValue(context);
+		return convertToStrList(obj);
+	}
+	
+	private List<String> convertToStrList(Object obj) {
+		if (obj instanceof List) {
+			return handleList(obj);
+		}
+		return Collections.singletonList(String.valueOf(obj));
+	}
+	
+	private List<String> handleList(Object obj) {
+		Object first = ((List<?>) obj).stream().findFirst().get();
+		if (first instanceof String) {
+			return (List<String>) obj;
+		}
+		return ((List<?>) obj).stream().map(o -> String.valueOf(o)).collect(Collectors.toList());
+	}
+	
 }

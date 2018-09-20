@@ -63,7 +63,7 @@ public class ZookeeperDistributedLock extends AbstractZookeeperDistributedLock {
 			return true;
 		} catch (Exception e) {
 			LOGGER.error("Zookeeper解锁失败 key : " + key, e);
-			throw e;
+			return false;
 		}
 	}
 

@@ -9,6 +9,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.yijiupi.himalaya.distributedlock.constants.Constants;
+
 /**
  * @ClassName: RedisLock
  * @Description:
@@ -20,15 +22,21 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface RedisLock {
+	
+	/**
+	 * 锁的key
+	 */
+	String key();
+	
+	/**
+	 * 条件
+	 */
+	String conditions() default Constants.DEFAULT_VALUE;
+	
 	/** 
 	 * 锁的资源，redis的key 
 	 **/
-	String value() default "default";
-	
-	/**
-	 * 加锁资源列表
-	 */
-	String[] values() default "default";
+	String value() default Constants.DEFAULT_VALUE;
 
 	/** 
 	 * 持锁时间,单位毫秒 

@@ -6,19 +6,13 @@ package com.yijiupi.himalaya.distributedlock.redis;
 import java.util.Arrays;
 import java.util.Collections;
 
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
-import org.springframework.scripting.support.ResourceScriptSource;
-import org.springframework.stereotype.Component;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
@@ -116,8 +110,8 @@ public class RedisDistributedLock extends AbstractRedisDistributedLock {
 				return true;
 			}
 		} catch (Exception e) {
-			LOGGER.error("RedisDistributedLock lock 加锁异常 key : " + key, e);
-			throw new RuntimeException("系统异常！");
+			LOGGER.error("RedisDistributedLock releaseLock 释放锁异常 key : " + key, e);
+			return false;
 		}
 		return false;
 	}
